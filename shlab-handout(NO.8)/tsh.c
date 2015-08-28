@@ -2,6 +2,7 @@
  * tsh - A tiny shell program with job control
  * 
  * <Put your name and login ID here>
+ *prompt 是命令提示符
  */
 #include <stdio.h>
 #include <stdlib.h>
@@ -18,6 +19,12 @@
 #define MAXARGS     128   /* max args on a command line */
 #define MAXJOBS      16   /* max jobs at any point in time */
 #define MAXJID    1<<16   /* max job ID */
+/*
+1<<16
+左移16位
+0000000000000001(2)==1
+1000000000000000(2)==2^16==65536
+*/
 
 /* Job states */
 #define UNDEF 0 /* undefined */
@@ -40,7 +47,7 @@ extern char **environ;      /* defined in libc */
 char prompt[] = "tsh> ";    /* command line prompt (DO NOT CHANGE) */
 int verbose = 0;            /* if true, print additional output */
 int nextjid = 1;            /* next job ID to allocate */
-char sbuf[MAXLINE];         /* for composing sprintf messages */
+char sbuf[MAXLINE];         /* for composing sprintf(把格式化的数据写入某个字符串) messages */
 
 struct job_t {              /* The job struct */
     pid_t pid;              /* job PID */
@@ -86,13 +93,13 @@ typedef void handler_t(int);
 handler_t *Signal(int signum, handler_t *handler);
 
 /*
- * main - The shell's main routine 
+ * main - The shell's main routine(程序)
  */
 int main(int argc, char **argv) 
 {
     char c;
     char cmdline[MAXLINE];
-    int emit_prompt = 1; /* emit prompt (default) */
+    int emit_prompt = 1; /* emit(发出) prompt(提示) (default) */
 
     /* Redirect stderr to stdout (so that driver will get all output
      * on the pipe connected to stdout) */
@@ -190,12 +197,12 @@ int parseline(const char *cmdline, char **argv)
 
     /* Build the argv list */
     argc = 0;
-    if (*buf == '\'') {
-	buf++;
-	delim = strchr(buf, '\'');
+    if (*buf == '\'') { //*buf是单个字符
+        buf++;
+        delim = strchr(buf, '\'');
     }
     else {
-	delim = strchr(buf, ' ');
+	    delim = strchr(buf, ' ');
     }
 
     while (delim) {

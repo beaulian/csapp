@@ -1,0 +1,17 @@
+<component name="ProjectDictionaryState">
+  <dictionary name="gavin">
+    <words>
+      <w>feof</w>
+      <w>ferror</w>
+      <w>fflush</w>
+      <w>fgets</w>
+      <w>getopt</w>
+      <w>sigaddset</w>
+      <w>sigemptyset</w>
+      <w>sigprocmask</w>
+      <w>stdout</w>
+      <w>strcpy</w>
+      <w>strlen</w>
+    </words>
+  </dictionary>
+</component>
